@@ -1,9 +1,9 @@
 <template>
-    <h1>Olá Vue</h1>
+    <input type="submit" value="Enviar">
 </template>
 
 <script>
     export default {
-        name: "PrimeiroComponente"
+        name: "SubmmitBtn"
     }
 </script>
