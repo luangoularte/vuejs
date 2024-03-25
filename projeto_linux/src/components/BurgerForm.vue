@@ -9,14 +9,14 @@
                 </div>
                 <div class="input-container">
                     <label for="pao">Escolha o pão:</label>
-                    <select name="pao" id="pao" v-model="pao" >
+                    <select name="pao" id="pao" v-model="pao" required>
                         <option value="" disabled selected>Selecione o seu pão</option>
                         <option value="integral">Integral</option>
                     </select>
                 </div>
                 <div class="input-container">
                     <label for="carne">Escolha a carne do seu Burger:</label>
-                    <select name="carne" id="carne" v-model="carne">
+                    <select name="carne" id="carne" v-model="carne" required>
                         <option value="" disabled selected>Selecione o tipo de carne</option>
                         <option value="maminha">Maminha</option>
                     </select>
@@ -46,7 +46,21 @@
 
 <script>
     export default {
-        name: "BurgerForm"
+        name: "BurgerForm",
+        data() {
+            return {
+                paes: mull,
+                carnes: null,
+                opcionaisdata: null,
+                nome:null,
+                pao: null,
+                carne: null,
+                opcionais: [],
+                status: "solicitado",
+                msg: null
+
+            }
+        }
     }
 </script>
 
@@ -118,4 +132,5 @@
         background-color: transparent;
         color: #222;
     }
+
 </style>

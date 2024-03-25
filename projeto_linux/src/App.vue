@@ -26,6 +26,7 @@
 </script>
 
 <style>
+
   * {
     font-family: sans-serif;
     padding: 0;
@@ -36,12 +37,15 @@
   .main-container {
     margin: 50px;
     min-height: 250px;
+    padding: 0;
+    margin: 0;
   }
 
   h1 {
     text-align: center;
     font-size: 42px;
     margin-bottom: 30px;
+    margin-top: 20px;
     color: #222;
   }
 
