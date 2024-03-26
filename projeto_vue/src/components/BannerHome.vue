@@ -5,14 +5,14 @@
 </template>
 
 <script>
-    export default {
-        name: "BannerHome"
-    }
+export default {
+    name: "BannerHome"
+}
 </script>
 
 
 <style scoped>
-    #main-banner {
+#main-banner {
     background-image: url('C:\Users\luana\OneDrive\Área de Trabalho\vuejs\projeto_vue\public\img\burger.jpg');
     background-position: 0 -350px;
     background-size: cover;
@@ -20,13 +20,13 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-  }
+}
 
-  #main-banner h1 {
+#main-banner h1 {
     color: #fff;
     text-align: center;
     font-size: 80px;
     background-color: #222;
     padding: 20px 40px;
-  }
+}
 </style>

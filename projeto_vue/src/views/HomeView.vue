@@ -7,16 +7,16 @@
 </template>
 
 <script>
-  import BannerHome from "../components/BannerHome.vue";
-  import BurgerForm from '../components/BurgerForm.vue';
+import BannerHome from "../components/BannerHome.vue";
+import BurgerForm from '../components/BurgerForm.vue';
 
-  export default {
-    name: "HomeView",
-    components: {
-      BannerHome,
-      BurgerForm
-    }
+export default {
+  name: "HomeView",
+  components: {
+    BannerHome,
+    BurgerForm
   }
+}
 </script>
 
 <style scoped>
