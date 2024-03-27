@@ -101,11 +101,11 @@ export default {
 
             setTimeout(() => this.msg= "", 3000);
 
-            sending(result.status, result.nome);
+            this.sending(result.status, result.nome);
 
             console.log(result);
         },
-        sending(status, nome) {
+        async sending(status, nome) {
             var amqp = require('amqplib/callback_api');
 
             amqp.connect('amqp://localhost', function(error0, connection) {

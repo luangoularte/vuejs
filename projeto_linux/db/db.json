@@ -91,7 +91,7 @@
         "Cebola roxa",
         "Pepino"
       ],
-      "status": "Solicitado"
+      "status": "Em produção"
     },
     {
       "id": "1b75",
@@ -101,7 +101,20 @@
       "opcionais": [
         "Bacon"
       ],
-      "status": "solicitado"
+      "status": "Em produção"
+    },
+    {
+      "id": "164e",
+      "nome": "Tércio",
+      "carne": "Picanha",
+      "pao": "Italiano Branco",
+      "opcionais": [
+        "Cebola roxa",
+        "Bacon",
+        "Tomate",
+        "Pepino"
+      ],
+      "status": "Solicitado"
     }
   ]
 }
