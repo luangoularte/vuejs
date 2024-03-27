@@ -105,7 +105,7 @@ export default {
 
             console.log(result);
         },
-        async sending(status, nome) {
+        sending(status, nome) {
             var amqp = require('amqplib/callback_api');
 
             amqp.connect('amqp://localhost', function(error0, connection) {
