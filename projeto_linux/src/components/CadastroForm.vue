@@ -82,6 +82,7 @@ export default {
     max-width: 300px;
     margin: 0 auto;
     margin-top: 30px;
+    margin-bottom: 250px;
 }
 
 .input-container {

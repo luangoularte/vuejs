@@ -13,7 +13,7 @@
 
 <style scoped>
     #main-banner {
-    background-image: url('C:\Users\luana\OneDrive\Área de Trabalho\vuejs\projeto_linux\public\img\burger.jpg');
+    background-image: url('/home/imply/vuejs/projeto_linux/public/img/burger.jpg');
     background-position: 0 -350px;
     background-size: cover;
     height: 700px;

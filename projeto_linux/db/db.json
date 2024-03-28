@@ -88,9 +88,41 @@
         "Cebola roxa"
       ],
       "status": "Em produção"
+    },
+    {
+      "id": "2727",
+      "nome": "Tércio",
+      "email": "stercio851@gmail.com",
+      "carne": "Picanha",
+      "pao": "Italiano Branco",
+      "opcionais": [
+        "Cebola roxa",
+        "Bacon",
+        "Salame",
+        "Pepino"
+      ],
+      "status": "Em produção"
+    },
+    {
+      "id": "7563",
+      "nome": "VIviane",
+      "email": "vivimyller@yahoo.com.br",
+      "carne": "Picanha",
+      "pao": "Parmesão e Orégano",
+      "opcionais": [
+        "Bacon",
+        "Tomate",
+        "Cebola roxa",
+        "Pepino"
+      ],
+      "status": "Finalizado"
     }
   ],
   "clientes": [
-
+    {
+      "id": "08b8",
+      "nome": "VIviane",
+      "email": "vivimyller@yahoo.com.br"
+    }
   ]
 }
