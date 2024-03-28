@@ -1,10 +1,11 @@
 <template>
     <nav>
-        <router-link to="/" id="logo-url">
+        <router-link to="/home" id="logo-url">
             <img :src="logo" :alt="alt" id="logo">
         </router-link>
-        <router-link to="/">Home</router-link> 
+        <router-link to="/home">Home</router-link> 
         <router-link to="/pedidos">Pedidos</router-link>
+        <router-link to="/">Cadastro</router-link>
   </nav>
 </template>
 

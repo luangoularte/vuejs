@@ -35,6 +35,7 @@
 
 <script>
 import MessageSystem from "./MessageSystem.vue";
+import axios from "axios";
 
 export default {
     name: "DashboardPedidos",
@@ -101,7 +102,15 @@ export default {
 
             setTimeout(() => this.msg= "", 3000)
 
+            this.sendMessage(result.nome, result.status, result.email);
+
             console.log(result)
+        },
+        sendMessage(nome, status, email) {
+            console.log("click");
+            axios.get(
+                "http://localhost:9000?nome="+nome+"&status="+status+"&email="+email
+            )
         }
     },
     mounted() {

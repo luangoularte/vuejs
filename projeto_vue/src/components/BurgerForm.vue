@@ -1,12 +1,8 @@
 <template>
     <div>
-        <MessageSystem :msg = "msg" v-show="msg"/>
         <div>
+            <h1 v-if="nome">Olá, {{ nome }}!</h1>
             <form id="burger-form" @submit="createBurger">
-                <div class="input-container">
-                    <label for="nome">Nome do cliente:</label>
-                    <input type="text" name="nome" id="nome" v-model="nome" placeholder="Digite seu nome" required>
-                </div>
                 <div class="input-container">
                     <label for="pao">Escolha o pão:</label>
                     <select name="pao" id="pao" v-model="pao" required>
@@ -35,6 +31,7 @@
                 <div class="input-container">
                     <input class="submit-btn" type="submit" value="Criar meu Burger!">
                 </div>
+                <MessageSystem :msg = "msg" v-show="msg"/>
             </form>
         </div>
     </div>
@@ -42,6 +39,7 @@
 
 <script>
 import MessageSystem from "./MessageSystem.vue"
+
 
 export default {
 
@@ -51,14 +49,27 @@ export default {
             paes: null,
             carnes: null,
             opcionaisdata: null,
-            nome:null,
             pao: null,
             carne: null,
             opcionais: [],
-            msg: null
+            msg: null,
+            nome: null,
+            email: null
         }
     },
     methods: {
+        async getDadosCliente(){
+            const request = await fetch("http://localhost:3000/clientes");
+            const data = await request.json();
+
+            if(data.length > 0){
+                const ultimoCliente = data[data.length - 1];
+
+                this.nome = ultimoCliente.nome;
+                this.email = ultimoCliente.email;
+            }
+            
+        },
         async getIngredientes() {
             const request = await fetch("http://localhost:3000/ingredientes");
             const data = await request.json();
@@ -71,8 +82,18 @@ export default {
         async createBurger(e) {
             e.preventDefault()
 
+            console.log(this.nome, this.email);
+
+            if(!this.nome || !this.email) {
+                this.msg = `Necessário realizar o cadastro!`;
+
+                setTimeout(() => this.msg= "", 4000);
+                return
+            }
+
             const data = {
                 nome: this.nome,
+                email: this.email,
                 carne: this.carne,
                 pao: this.pao,
                 opcionais: Array.from(this.opcionais),
@@ -92,7 +113,7 @@ export default {
 
             this.msg = `Pedido Nº ${result.id} realizado com sucesso!`;
 
-            setTimeout(() => this.msg= "", 3000)
+            setTimeout(() => this.msg= "", 4000)
 
             this.nome = "";
             this.carne = "";
@@ -103,6 +124,7 @@ export default {
     },
     mounted() {
         this.getIngredientes();
+        this.getDadosCliente();
     },
     components: {
         MessageSystem 
@@ -111,6 +133,11 @@ export default {
 </script>
 
 <style scoped>
+
+h1 {
+    font-size: 20px;
+}
+
 #burger-form {
     max-width: 500px;
     margin: 0 auto;

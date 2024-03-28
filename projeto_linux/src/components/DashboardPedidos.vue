@@ -35,6 +35,7 @@
 
 <script>
 import MessageSystem from "./MessageSystem.vue";
+import axios from "axios";
 
 export default {
     name: "DashboardPedidos",
@@ -87,7 +88,7 @@ export default {
 
             const option = event.target.value;
 
-            const dataJson = JSON.stringify({ status: option });
+            const dataJson = JSON.stringify({ status: option })
 
             const require = await fetch(`http://localhost:3000/burgers/${id}`, {
                 method: "PATCH",
@@ -99,38 +100,17 @@ export default {
 
             this.msg = `O pedido ${result.id} foi alterado para ${result.status}!`;
 
-            setTimeout(() => this.msg= "", 3000);
+            setTimeout(() => this.msg= "", 3000)
 
-            this.sending(result.status, result.nome);
+            this.sendMessage(result.nome, result.status, result.email);
 
-            console.log(result);
+            console.log(result)
         },
-        sending(status, nome) {
-            var amqp = require('amqplib/callback_api');
-
-            amqp.connect('amqp://localhost', function(error0, connection) {
-                if (error0) {
-                    throw error0;
-                }
-                connection.createChannel(function(error1, channel) {
-                    if (error1) {
-                    throw error1;
-                    }
-                    var queue = 'hello';
-                    var msg = status;
-
-                    channel.assertQueue(queue, {
-                    durable: false
-                    });
-
-                    channel.sendToQueue(queue, Buffer.from(msg));
-                    console.log('Prezado ' + nome + " seu pedido está ", msg);
-                });
-            });
-            setTimeout(function() {
-                connection.close();
-                process.exit(0)
-            }, 500);
+        sendMessage(nome, status, email) {
+            console.log("click");
+            axios.get(
+                "http://localhost:9000?nome="+nome+"&status="+status+"&email="+email
+            )
         }
     },
     mounted() {

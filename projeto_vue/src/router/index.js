@@ -4,6 +4,11 @@ import HomeView from '../views/HomeView.vue'
 const routes = [
   {
     path: '/',
+    name: 'CadastroView',
+    component: () => import(/* webpackChunkName: "about" */ '../views/CadastroView.vue')
+  },
+  {
+    path: '/home',
     name: 'home',
     component: HomeView
   },

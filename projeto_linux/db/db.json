@@ -79,124 +79,18 @@
   ],
   "burgers": [
     {
-      "id": "79f4",
-      "nome": "Caio",
-      "carne": "Picanha",
-      "pao": "3 Queijos",
-      "opcionais": [
-        "Bacon",
-        "Cheddar",
-        "Salame",
-        "Tomate",
-        "Cebola roxa",
-        "Pepino"
-      ],
-      "status": "Em produção"
-    },
-    {
-      "id": "1b75",
-      "nome": "dasd",
+      "id": "b642",
+      "nome": "Luan Goularte Kist",
+      "email": "luan.ag2012gk@gmail.com",
       "carne": "Alcatra",
       "pao": "Italiano Branco",
       "opcionais": [
-        "Bacon"
+        "Cebola roxa"
       ],
       "status": "Em produção"
-    },
-    {
-      "id": "164e",
-      "nome": "Tércio",
-      "carne": "Picanha",
-      "pao": "Italiano Branco",
-      "opcionais": [
-        "Cebola roxa",
-        "Bacon",
-        "Tomate",
-        "Pepino"
-      ],
-      "status": "Solicitado"
-    },
-    {
-      "id": "e1d5",
-      "nome": "adasd",
-      "carne": "Picanha",
-      "pao": "3 Queijos",
-      "opcionais": [
-        "Pepino"
-      ],
-      "status": "solicitado"
-    },
-    {
-      "id": "33f0",
-      "nome": "asda",
-      "carne": "Maminha",
-      "pao": "Italiano Branco",
-      "opcionais": [
-        "Cheddar",
-        "Salame"
-      ],
-      "status": "solicitado"
-    },
-    {
-      "id": "5cfa",
-      "nome": "dsad",
-      "carne": "Veggie burger",
-      "pao": "3 Queijos",
-      "opcionais": [
-        "Tomate"
-      ],
-      "status": "solicitado"
-    },
-    {
-      "id": "3bd6",
-      "nome": "asd",
-      "carne": "Maminha",
-      "pao": "Italiano Branco",
-      "opcionais": [
-        "Bacon",
-        "Cheddar"
-      ],
-      "status": "solicitado"
-    },
-    {
-      "id": "cac4",
-      "nome": "dsff",
-      "carne": "Alcatra",
-      "pao": "3 Queijos",
-      "opcionais": [
-        "Cheddar"
-      ],
-      "status": "solicitado"
-    },
-    {
-      "id": "46d0",
-      "nome": "sdaf",
-      "carne": "Maminha",
-      "pao": "Italiano Branco",
-      "opcionais": [
-        "Bacon"
-      ],
-      "status": "solicitado"
-    },
-    {
-      "id": "278e",
-      "nome": "sadas",
-      "carne": "Picanha",
-      "pao": "3 Queijos",
-      "opcionais": [
-        "Bacon"
-      ],
-      "status": "solicitado"
-    },
-    {
-      "id": "c89c",
-      "nome": "dasd",
-      "carne": "Maminha",
-      "pao": "3 Queijos",
-      "opcionais": [
-        "Bacon"
-      ],
-      "status": "solicitado"
     }
+  ],
+  "clientes": [
+
   ]
 }
