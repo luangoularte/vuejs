@@ -79,7 +79,7 @@ export default {
 }
 
 .cadastro-form {
-    max-width: 300px;
+    max-width: 320px;
     margin: 0 auto;
     margin-top: 30px;
     margin-bottom: 250px;

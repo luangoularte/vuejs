@@ -54,11 +54,11 @@
         "tipo": "Tomate"
       },
       {
-        "id": 5,
+        "id": 4,
         "tipo": "Cebola roxa"
       },
       {
-        "id": 6,
+        "id": 4,
         "tipo": "Pepino"
       }
     ]
@@ -79,50 +79,39 @@
   ],
   "burgers": [
     {
-      "id": "b642",
-      "nome": "Luan Goularte Kist",
+      "id": "a85c",
+      "nome": "Luan",
       "email": "luan.ag2012gk@gmail.com",
-      "carne": "Alcatra",
+      "carne": "Picanha",
+      "pao": "3 Queijos",
+      "opcionais": [
+        "Cheddar",
+        "Salame"
+      ],
+      "status": "solicitado"
+    },
+    {
+      "id": "bef7",
+      "nome": "sdas",
+      "email": "luan.ag2012gk@gmail.com",
+      "carne": "Picanha",
       "pao": "Italiano Branco",
       "opcionais": [
         "Cebola roxa"
       ],
-      "status": "Em produção"
-    },
-    {
-      "id": "2727",
-      "nome": "Tércio",
-      "email": "stercio851@gmail.com",
-      "carne": "Picanha",
-      "pao": "Italiano Branco",
-      "opcionais": [
-        "Cebola roxa",
-        "Bacon",
-        "Salame",
-        "Pepino"
-      ],
-      "status": "Em produção"
-    },
-    {
-      "id": "7563",
-      "nome": "VIviane",
-      "email": "vivimyller@yahoo.com.br",
-      "carne": "Picanha",
-      "pao": "Parmesão e Orégano",
-      "opcionais": [
-        "Bacon",
-        "Tomate",
-        "Cebola roxa",
-        "Pepino"
-      ],
-      "status": "Finalizado"
+      "status": "solicitado"
     }
   ],
   "clientes": [
     {
-      "id": "08b8",
-      "nome": "VIviane",
-      "email": "vivimyller@yahoo.com.br"
+      "id": "b1e4",
+      "nome": "Luan",
+      "email": "luan.ag2012gk@gmail.com"
+    },
+    {
+      "id": "1bab",
+      "nome": "sdas",
+      "email": "luan.ag2012gk@gmail.com"
     }
   ]
 }

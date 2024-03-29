@@ -29,7 +29,8 @@ async function createTables() {
         email VARCHAR (100) NOT NULL,
         carne VARCHAR (50) NOT NULL,
         pao VARCHAR (50) NOT NULL,
-        opcionais TEXT NOT NULL
+        opcionais TEXT NOT NULL,
+        status VARCHAR (50) NOT NULL
     )`)
 
     await db.query(`CREATE TABLE clientes(

@@ -39,6 +39,7 @@
 
 <script>
 import MessageSystem from "./MessageSystem.vue"
+import axios from "axios";
 
 
 export default {
@@ -107,11 +108,11 @@ export default {
                 headers: {"Content-Type": "application/json"},
                 body: dataJson
             });
-
+            
             const result = await request.json();
             console.log(result);
 
-            this.msg = `Pedido Nº ${result.id} realizado com sucesso!`;
+            this.msg = `Pedido realizado com sucesso!`;
 
             setTimeout(() => this.msg= "", 4000)
 

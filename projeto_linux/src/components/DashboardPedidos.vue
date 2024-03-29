@@ -19,7 +19,7 @@
                 <div>{{ burger.carne }}</div>
                 <div>
                     <ul>
-                        <li v-for="(opcional, index) in burger.opcionais" :key="index">{{ opcional }}</li>
+                        <li v-for='(opcional, index) in (burger.opcionais.replace(/[{}"]/g, "").split(","))' :key="index">{{ opcional }}</li>
                     </ul>
                 </div>
                 <div>
@@ -36,6 +36,7 @@
 <script>
 import MessageSystem from "./MessageSystem.vue";
 import axios from "axios";
+
 
 export default {
     name: "DashboardPedidos",
