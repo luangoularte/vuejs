@@ -3,6 +3,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const get = require('./get');
 const post = require('./post');
+const delete1 = require('./delete');
+const update = require('./update');
 const db = require("./database");
 
 const app = express();
@@ -14,6 +16,9 @@ db.connect();
 
 app.use('/', get);
 app.use('/', post);
+app.use('/', delete1);
+app.use('/', update);
+
 
 const porta = 3000;
 app.listen(porta, () => {

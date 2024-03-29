@@ -5,7 +5,7 @@ const db = require("./database");
 const router = express.Router();
 
 
-router.put('/burgers/:id', async (req, res) => {
+router.patch('/burgers/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const { status } = req.body;
