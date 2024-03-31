@@ -1,9 +1,9 @@
 <template>
     <nav>
-        <router-link to="/home" id="logo-url">
+        <router-link to="/pedidos" id="logo-url">
             <img :src="logo" :alt="alt" id="logo">
         </router-link>
-        <router-link to="/home">Home</router-link>
+        <router-link to="/pedidos">Pedidos</router-link>
         <router-link to="/" v-if="!autenticado">Login</router-link>
         <router-link v-if="autenticado" to="/" @click.native="logout">Logout</router-link>
   </nav>
@@ -16,15 +16,15 @@ export default {
     props: ["logo", "alt"],
     data() {
         return {
-            autenticado: localStorage.getItem('cliente') !== null
+            autenticado: localStorage.getItem('admin') !== null
         }   
     },
     
     methods: {
         logout() {
-            localStorage.removeItem('cliente');
-            console.log('Logout realizado')
-            window.location.reload()
+            localStorage.removeItem('admin');
+            console.log('Logout realizado');
+            window.location.reload();
         }
     }
 }

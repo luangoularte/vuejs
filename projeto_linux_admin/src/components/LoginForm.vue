@@ -1,13 +1,10 @@
 <template>
     <div class="form-container">
-        <form class="cadastro-form" @submit="criarCadastro" >
+        <form class="cadastro-form" @submit="logar" >
             <div class="imagem">
                 <img src="/img/logo.png" alt="hamburguer" class="logo">
             </div>
-            <div class="input-container">
-                <label for="nome">Nome do cliente:</label>
-                <input type="text" name="nome" id="nome" v-model="nome" placeholder="Digite seu nome" required>
-            </div>
+            <MessageSystem :msg = "msg" v-show="msg"/>
             <div class="input-container">
                 <label for="email">Email:</label>
                 <input type="email" name="email" id="email" v-model="email" placeholder="Digite seu email" required>
@@ -17,93 +14,59 @@
                 <input type="password" name="senha" id="senha" v-model="senha" placeholder="Digite sua senha" required>
             </div>
             <div class="input-container">
-                <label for="senha1">Confirme sua senha:</label>
-                <input type="password" name="senha_check" id="senha_check" v-model="senha_check" placeholder="Digite sua senha" required>
+                <input class="submit-btn" type="submit" value="Entrar">
             </div>
-            <div class="input-container">
-                <input class="submit-btn" type="submit" value="Cadastrar">
-            </div>
-            <MessageSystem :msg = "msg" v-show="msg"/>
         </form>
     </div>
 </template>
 
-
 <script>
-import BurgerForm from './BurgerForm.vue';
-import MessageSystem from "./MessageSystem.vue"
+import MessageSystem from './MessageSystem.vue';
 
 export default {
-    name: "CadastroForm",
+    name: "LoginForm",
     data() {
         return {
-            nome: null,
             email: null,
             senha: null,
-            senha_check: null,
-            acao: "cadastrar",
             msg: null
         }
     },
-    components: {
-        BurgerForm,
-        MessageSystem
-    },
     methods: {
-        async criarCadastro(e){
+        async logar(e){
             e.preventDefault();
 
-            const emailJaCadastrado = await this.verificarEmailCadastrado(this.email)
-
-            if(emailJaCadastrado) {
-                this.msg = `Oops! Este email já está cadastrado`;
-
-                setTimeout(() => this.msg= "", 4000);
-                return
-            }
-
-            if (this.senha != this.senha_check){
-                this.msg = `Oops! Parece que as senhas digitadas não correspondem.`;
-
-                setTimeout(() => this.msg= "", 4000);
-                return
-            }
-
-
             const data = {
-                acao: this.acao,
-                nome: this.nome,
                 email: this.email,
                 senha: this.senha
             }
 
             const dataJson = JSON.stringify(data)
 
-            const request = await fetch("http://localhost:3000/clientes", {
+            const request = await fetch("http://localhost:4000/admin", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: dataJson
             });
-
+            
             const result = await request.json();
-            console.log(result);
+            console.log(result)
 
-            this.nome = "";
-            this.email = "";
-            this.senha = "";
-            this.senha_check = "";
-
-            this.msg = `Cadastro realizado com sucesso!`;
-
-            setTimeout(() => this.msg= "", 4000);
-        },
-        async verificarEmailCadastrado(email) {
-            const response = await fetch(`http://localhost:3000/clientes?email=${email}`);
-            const data = await response.json();
-            return data.length > 0;
+            if (request.ok) {
+                localStorage.setItem('admin', JSON.stringify({ email: this.email }));
+                this.$router.push("/pedidos");
+                window.location.reload(); 
+            } else {
+                this.msg = 'Email ou senha incorretos';
+                setTimeout(() => this.msg= "", 4000);
+            }
         }
+    },
+    components: {
+        MessageSystem
     }
 }
+
 </script>
 
 <style scoped>

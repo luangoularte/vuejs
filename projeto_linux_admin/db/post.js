@@ -27,6 +27,22 @@ router.post("/clientes", async (req, res) => {
     }
 });
 
+router.post("/admin", async (req, res) => {
+    try {
+        const { email, senha } = req.body;
+        const result = await db.query("SELECT * FROM admin WHERE email = $1 AND senha = $2", [email, senha]);
+        if (result.rows.length > 0) {
+            res.status(200).json({ message: "Logado com sucesso", cliente: result.rows[0] });
+        } else {
+            res.status(401).json({ error: 'Email ou senha incorretos' });
+        }
+        
+    } catch (error) {
+        console.error('Erro ao processar requisição:', error);
+        res.status(500).json({ error: 'Erro interno do servidor' });
+    }
+});
+
 router.post("/burgers", async (req, res) => {
     try {
         const { nome, email, carne, pao, opcionais, status } = req.body;

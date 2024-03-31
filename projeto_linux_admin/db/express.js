@@ -20,13 +20,13 @@ app.use('/', delete1);
 app.use('/', update);
 
 
-const porta = 3000;
+const porta = 4000;
 app.listen(porta, () => {
     console.log(`Servidor rodando na porta ${porta}\n`);
     console.log("ENDPOINTS:")
-    console.log('http://localhost:3000/ingredientes');
-    console.log('http://localhost:3000/status');
-    console.log('http://localhost:3000/burgers');
-    console.log('http://localhost:3000/clientes');
-    console.log('http://localhost:3000/admin');
+    console.log('http://localhost:4000/ingredientes');
+    console.log('http://localhost:4000/status');
+    console.log('http://localhost:4000/burgers');
+    console.log('http://localhost:4000/clientes');
+    console.log('http://localhost:4000/admin');
 });

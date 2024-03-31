@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+
 
 Vue.use(VueRouter)
 
@@ -11,16 +11,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/LoginView.vue')
   },
   {
-    path: '/cadastro',
-    name: 'CadastroView',
-    component: () => import(/* webpackChunkName: "about" */ '../views/CadastroView.vue')
-  },
-  {
-    path: '/home',
-    name: 'home',
-    component: HomeView,
+    path: '/pedidos',
+    name: 'PedidosView',
+
+    component: () => import(/* webpackChunkName: "about" */ '../views/PedidosView.vue'),
     meta: { requiresAuth: true }
-  },
+  }
 ]
 
 const router = new VueRouter({
@@ -30,7 +26,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem('cliente') !== null;
+  const isAuthenticated = localStorage.getItem('admin') !== null;
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
   if (requiresAuth && !isAuthenticated) {
