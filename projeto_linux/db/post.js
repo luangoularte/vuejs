@@ -9,8 +9,15 @@ router.post("/clientes", async (req, res) => {
         const { acao, nome, email, senha } = req.body;
 
         if (acao === "cadastrar") {
+
+            const result = await db.query ("SELECT * FROM clientes WHERE email = $1", [email]);
+            if (result.rows.length > 0) {
+                return res.status(401).json({ error: 'Email já em uso'});
+            }
+
             await db.query("INSERT INTO clientes (nome, email, senha) VALUES ($1, $2, $3)", [nome, email, senha]);
             res.status(201).json({ message: "Cliente cadastrado com sucesso" });
+
         } else if (acao === "login") {
             const result = await db.query("SELECT * FROM clientes WHERE email = $1 AND senha = $2", [email, senha]);
             if (result.rows.length > 0) {

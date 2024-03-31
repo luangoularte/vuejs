@@ -53,15 +53,6 @@ export default {
         async criarCadastro(e){
             e.preventDefault();
 
-            const emailJaCadastrado = await this.verificarEmailCadastrado(this.email)
-
-            if(emailJaCadastrado) {
-                this.msg = `Oops! Este email já está cadastrado`;
-
-                setTimeout(() => this.msg= "", 4000);
-                return
-            }
-
             if (this.senha != this.senha_check){
                 this.msg = `Oops! Parece que as senhas digitadas não correspondem.`;
 
@@ -84,9 +75,16 @@ export default {
                 headers: {"Content-Type": "application/json"},
                 body: dataJson
             });
-
+            
             const result = await request.json();
-            console.log(result);
+            console.log(result)
+
+            if (!request.ok) {
+                this.msg = `Oops! Este email já está cadastrado.`;
+
+                setTimeout(() => this.msg= "", 4000);
+                return
+            }
 
             this.nome = "";
             this.email = "";
@@ -96,11 +94,6 @@ export default {
             this.msg = `Cadastro realizado com sucesso!`;
 
             setTimeout(() => this.msg= "", 4000);
-        },
-        async verificarEmailCadastrado(email) {
-            const response = await fetch(`http://localhost:3000/clientes?email=${email}`);
-            const data = await response.json();
-            return data.length > 0;
         }
     }
 }
