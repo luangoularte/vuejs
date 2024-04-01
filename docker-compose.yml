@@ -1,0 +1,93 @@
+services:
+  rabbit:
+    image: rabbitmq:latest
+    container_name: rabbit
+    restart: always
+
+  postgres-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: postgres
+    ports:
+      - 5421:5432
+
+  server-sender:
+    image: node:latest
+    depends_on:
+      - postgres-db
+    volumes:
+      - './projeto_linux/.:/app'
+    ports:
+      - 3000:3000
+    command: 
+      bash -c 'cd ./app/db && npm i && node express.js'
+    restart:
+      always
+
+  server-sender-admin:
+    image: node:latest
+    depends_on:
+      - postgres-db
+    volumes:
+      - './projeto_linux_admin/.:/app'
+    ports:
+      - 4000:4000
+    command: 
+      bash -c 'cd ./app/db && npm i && node express.js'
+    restart:
+      always
+
+  server-front:
+    image: node:latest
+    depends_on:
+      - postgres-db
+    volumes:
+      -  './projeto_linux/.:/app'
+    command:
+      bash -c 'cd ./app && npm run serve'
+    ports:
+      - 8080:8080
+    restart:
+     always
+
+  server-front-admin:
+    image: node:latest
+    depends_on:
+      - postgres-db
+    volumes:
+      -  './projeto_linux_admin/.:/app'
+    command:
+      bash -c 'cd ./app && npm run serve'
+    ports:
+      - 8081:8080
+    restart:
+      always
+
+  server-rabbit-send:
+    image: node:latest
+    depends_on:
+      - rabbit
+    volumes:
+      - './projeto_linux_admin/public/.:/app'
+    command: 
+      bash -c 'cd app && npm install amqplib && node send.js'
+    ports:
+      - 9000:9000
+    restart:
+      always
+
+  server-rabbit-receive:
+    image: node:latest
+    depends_on:
+      - rabbit
+    volumes:
+      - './projeto_linux_admin/public/.:/app'
+    command: 
+      bash -c 'cd app && npm install amqplib && node receive.js'
+    ports:
+      - 9090:9000
+    restart:
+      always
+

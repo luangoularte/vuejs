@@ -5,10 +5,22 @@ services:
 
   postgres-db:
     image: postgres:latest
-    hostname: localhost
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: postgres
     ports:
       - 5421:5432
+
+  server-sender:
+    image: node:latest
+    depends_on:
+      - postgres-db
+    volumes:
+      - '.:/app'
+    command: 
+      bash -c 'cd ./app/db && npm i && node express.js'
+    ports:
+      - 3000:3000
+    restart:
+      always

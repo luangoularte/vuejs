@@ -3,10 +3,10 @@ const { Client } = require('pg');
 
 const client = new pg.Client ({
     user: "postgres",
-    host: "localhost",
+    host: "postgres-db",
     database: "postgres",
     password: "admin",
-    port: 5421
+    port: 5432
 })
 
 module.exports = client

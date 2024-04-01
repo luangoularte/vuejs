@@ -2,6 +2,8 @@ var http = require('http');
 var url = require("url");
 const enviarEmail = require('./nodemailer');
 
+console.log("send running!")
+
 http.createServer(function (req, res) {
   const headers = {
     'Access-Control-Allow-Origin': '*', /* @dev First, read about security */
@@ -17,10 +19,12 @@ http.createServer(function (req, res) {
 
   var amqp = require('amqplib/callback_api');
   var Buffer = require("buffer").Buffer
-  amqp.connect('amqp://localhost', function(error0, connection) {
+  amqp.connect('amqp://rabbit', function(error0, connection) {
+    
   if (error0) {
-  throw error0;
-  }
+      throw error0;
+    }
+    
     connection.createChannel(function(error1, channel) {
       if (error1) {
         throw error1;
