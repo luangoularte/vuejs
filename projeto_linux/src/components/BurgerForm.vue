@@ -8,7 +8,7 @@
                     <select name="pao" id="pao" v-model="pao" required>
                         <option value="" disabled selected>Selecione o seu pão</option>
                         <option v-for="pao in paes" v-bind:key="pao.id" :value="pao.tipo">
-                            {{ pao.tipo }}
+                            {{ pao.tipo }} <p class="valores">+R${{ pao.valor }}</p>
                         </option>
                     </select>
                 </div>
@@ -17,7 +17,7 @@
                     <select name="carne" id="carne" v-model="carne" required>
                         <option value="" disabled selected>Selecione o tipo de carne</option>
                         <option v-for="carne in carnes" v-bind:key="carne.id" :value="carne.tipo">
-                            {{ carne.tipo }}
+                            {{ carne.tipo }} <p class="valores">+R${{ carne.valor }}</p>
                         </option>
                     </select>
                 </div>
@@ -25,8 +25,13 @@
                     <label id="opcionais-title" for="opcionais">Selecione os opcionais:</label>
                     <div class="checkbox-container" v-for="opcional in opcionaisdata" :key="opcional.id">
                         <input type="checkbox" name="opcionais" v-model="opcionais" :value="opcional.tipo">
-                        <span>{{ opcional.tipo }}</span>
+                        <span>{{ opcional.tipo }}</span> +R${{ opcional.valor }}
                     </div>
+                </div>
+                <div class="total">
+                    <h1>Total:</h1> 
+                    <h1 v-if="total > 0">R${{ total }}</h1>
+                    <h1 v-else>R$0.00</h1>
                 </div>
                 <div class="input-container">
                     <input class="submit-btn" type="submit" value="Criar meu Burger!">
@@ -55,7 +60,8 @@ export default {
             opcionais: [],
             msg: null,
             nome: null,
-            email: null
+            email: null,
+            total: null
         }
     },
     methods: {
@@ -77,13 +83,6 @@ export default {
             e.preventDefault()
 
             console.log(this.nome, this.email);
-
-            if(!this.nome || !this.email) {
-                this.msg = `Necessário realizar o cadastro!`;
-
-                setTimeout(() => this.msg= "", 4000);
-                return
-            }
 
             const data = {
                 nome: this.nome,
@@ -115,6 +114,7 @@ export default {
             this.opcionais = [];
             
         }
+
     },
     mounted() {
         this.getIngredientes();
@@ -200,4 +200,11 @@ input, select {
     background-color: transparent;
     color: #222;
 }
+
+
+.total {
+    text-align: left;
+    display: flex;
+}
+
 </style>

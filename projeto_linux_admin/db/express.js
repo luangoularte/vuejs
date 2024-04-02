@@ -24,9 +24,10 @@ const porta = 4000;
 app.listen(porta, () => {
     console.log(`Servidor rodando na porta ${porta}\n`);
     console.log("ENDPOINTS:")
-    console.log('http://localhost:4000/ingredientes');
-    console.log('http://localhost:4000/status');
-    console.log('http://localhost:4000/burgers');
-    console.log('http://localhost:4000/clientes');
-    console.log('http://localhost:4000/admin');
+    console.log(`http://localhost:${porta}/ingredientes`);
+    console.log(`http://localhost:${porta}/status`);
+    console.log(`http://localhost:${porta}/burgers`);
+    console.log(`http://localhost:${porta}/clientes`);
+    console.log(`http://localhost:${porta}/admin`);
+    console.log(`http://localhost:${porta}/status_pagamento`);
 });

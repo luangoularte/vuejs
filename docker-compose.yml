@@ -23,7 +23,7 @@ services:
       - './projeto_linux/.:/app'
     ports:
       - 3000:3000
-    command: 
+    command:
       bash -c 'cd ./app/db && npm i && node express.js'
     restart:
       always
@@ -36,7 +36,7 @@ services:
       - './projeto_linux_admin/.:/app'
     ports:
       - 4000:4000
-    command: 
+    command:
       bash -c 'cd ./app/db && npm i && node express.js'
     restart:
       always
@@ -51,21 +51,6 @@ services:
       bash -c 'cd ./app && npm run serve'
     ports:
       - 8080:8080
-    restart:
-     always
-
-  server-front-admin:
-    image: node:latest
-    depends_on:
-      - postgres-db
-    volumes:
-      -  './projeto_linux_admin/.:/app'
-    command:
-      bash -c 'cd ./app && npm run serve'
-    ports:
-      - 8081:8080
-    restart:
-      always
 
   server-rabbit-send:
     image: node:latest
@@ -73,7 +58,7 @@ services:
       - rabbit
     volumes:
       - './projeto_linux_admin/public/.:/app'
-    command: 
+    command:
       bash -c 'cd app && npm install amqplib && node send.js'
     ports:
       - 9000:9000
@@ -86,7 +71,7 @@ services:
       - rabbit
     volumes:
       - './projeto_linux_admin/public/.:/app'
-    command: 
+    command:
       bash -c 'cd app && npm install amqplib && node receive.js'
     ports:
       - 9090:9000
