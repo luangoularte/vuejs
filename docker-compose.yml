@@ -10,8 +10,10 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: postgres
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - 5421:5432
+      - 5410:5432
 
   server-sender:
     image: node:latest
