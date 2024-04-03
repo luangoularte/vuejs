@@ -32,10 +32,12 @@
                 </div>
                 <div>
                     <select name="status_pagamento" class="status_pagamento" @change="updateBurger($event, burger.id)">
-                        <option v-for="status in status_pagamento" :key="status.id" :value="status.tipo" :selected="burger.status == status.tipo">{{ status.tipo }}</option>
+                        <option v-for="status in status_pagamento" :key="status.id" :value="status.tipo" :selected="burger.status_pagamento == status.tipo">{{ status.tipo }}</option>
                     </select>
                 </div>
-                <button class="delete-btn" @click="deleteBurger(burger.id)">Cancelar</button>
+                <div>
+                    <button class="delete-btn" @click="deleteBurger(burger.id)">Cancelar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -62,7 +64,7 @@ export default {
     },
     methods: {
         async getPedidos() {
-            const require = await fetch("http://localhost:3000/burgers");
+            const require = await fetch("http://localhost:4000/burgers");
 
             const data = await require.json();
 
@@ -75,7 +77,7 @@ export default {
             this.getStatusPagamento();
         },
         async getStatus() {
-            const require = await fetch("http://localhost:3000/status");
+            const require = await fetch("http://localhost:4000/status");
 
             const data = await require.json();
 
@@ -92,7 +94,7 @@ export default {
         },
         async deleteBurger(id) {
             
-            const require = await fetch(`http://localhost:3000/burgers/${id}`, {
+            const require = await fetch(`http://localhost:4000/burgers/${id}`, {
                 method: "DELETE"
             });
 
@@ -109,11 +111,9 @@ export default {
             const option = event.target.value;
             const colunaDisparada = event.target.name;
 
-            console.log(colunaDisparada, option)
-
             const dataJson = JSON.stringify({ [colunaDisparada]: option })
 
-            const require = await fetch(`http://localhost:3000/burgers/${id}`, {
+            const require = await fetch(`http://localhost:4000/burgers/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type" : "application/json" },
                 body: dataJson
@@ -142,7 +142,7 @@ export default {
 
 <style scoped>
 #burger-table {
-    max-width: 1400px;
+    max-width: 1550px;
     margin: 0 auto;
 }
 
@@ -161,7 +161,7 @@ export default {
 
 #burger-table-heading div,
   .burger-table-row div {
-    width: 12%;
+    width: 11%;
 }
 
 .burger-table-row {
@@ -172,7 +172,7 @@ export default {
 
 #burger-table-heading .order-id,
   .burger-table-row .order-number {
-    width: 5%;
+    width: 12%;
 }
 
 select {
@@ -191,6 +191,7 @@ select {
     margin: 0 auto;
     cursor: pointer;
     transition: .5s;
+    width: 150px;
 }
 
 .delete-btn:hover {

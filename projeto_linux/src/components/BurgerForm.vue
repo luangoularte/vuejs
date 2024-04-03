@@ -90,7 +90,7 @@ export default {
                 pao: this.pao.tipo,
                 opcionais: this.opcionais.map(opcional=>opcional.tipo),
                 status: "solicitado",
-                status_pagamento: "Aguardando pagamento",
+                status_pagamento: "aguardando pagamento",
                 total: this.total
             }
 

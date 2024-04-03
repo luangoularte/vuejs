@@ -55,7 +55,7 @@ export default {
             if (request.ok) {
                 localStorage.setItem('admin', JSON.stringify({ email: this.email }));
                 this.$router.push("/pedidos");
-                window.location.reload(); 
+                setTimeout(() => window.location.reload(), 1);
             } else {
                 this.msg = 'Email ou senha incorretos';
                 setTimeout(() => this.msg= "", 4000);
