@@ -125,7 +125,7 @@ export default {
 
             setTimeout(() => this.msg= "", 3000)
 
-            //this.sendMessage(result.nome, option, result.email, colunaDisparada);
+            this.sendMessage(result.nome, option, result.email, colunaDisparada);
 
         },
         sendMessage(nome, option, email, colunaDisparada) {
