@@ -51,6 +51,22 @@ services:
       bash -c 'cd ./app && npm run serve'
     ports:
       - 8080:8080
+    restart:
+      always
+    
+
+  server-front-admin:
+    image: node:latest
+    depends_on:
+      - postgres-db
+    volumes:
+      -  './projeto_linux_admin/.:/app'
+    command:
+      bash -c 'cd ./app && npm run serve'
+    ports:
+      - 8081:8080
+    restart:
+      always
 
   server-rabbit-send:
     image: node:latest

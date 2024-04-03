@@ -36,8 +36,8 @@ router.post("/clientes", async (req, res) => {
 
 router.post("/burgers", async (req, res) => {
     try {
-        const { nome, email, carne, pao, opcionais, status } = req.body;
-        await db.query("INSERT INTO burgers (nome, email, carne, pao, opcionais, status) VALUES ($1, $2,$3, $4, $5, $6)", [nome, email, carne, pao, opcionais, status]);
+        const { nome, email, carne, pao, opcionais, status, status_pagamento, total } = req.body;
+        await db.query("INSERT INTO burgers (nome, email, carne, pao, opcionais, status, status_pagamento, total) VALUES ($1, $2,$3, $4, $5, $6, $7, $8)", [nome, email, carne, pao, opcionais, status, status_pagamento, total]);
         res.status(201).json({ message: "Burger criado com sucesso" });
     } catch (error) {
         console.error('Erro ao criar burger:', error);

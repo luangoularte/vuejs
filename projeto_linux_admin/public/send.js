@@ -14,8 +14,9 @@ http.createServer(function (req, res) {
 
   var response = url.parse(req.url, true).query;
   var nome = response.nome;
-  var status = response.status;
+  var option = response.option;
   var email = response.email;
+  var colunaDisparada = response.colunaDisparada;
 
   var amqp = require('amqplib/callback_api');
   var Buffer = require("buffer").Buffer
@@ -30,18 +31,37 @@ http.createServer(function (req, res) {
         throw error1;
       }
       var queue = 'hello';
-      var msg = 'Prezado(a) ' + nome + ', seu pedido está ' + status;
 
-      channel.assertQueue(queue, {
-      durable: false
-    });
+      if (colunaDisparada === "status") {
+
+        var msg = 'Prezado(a) ' + nome + ', seu pedido está ' + option;
+
+        channel.assertQueue(queue, {
+          durable: false
+        });
 
         channel.sendToQueue(queue, Buffer.from(msg));
         console.log(msg);
 
-        const assunto = 'Status do Pedido';
-        enviarEmail(email, assunto, msg);
-        console.log(email);
+        var assunto = 'Status do Pedido';
+
+      } else {
+
+        var msg = 'Prezado(a) ' + nome + ', seu pedido se encontra ' + option;
+
+        channel.assertQueue(queue, {
+          durable: false
+        });
+
+        channel.sendToQueue(queue, Buffer.from(msg));
+        console.log(msg);
+
+        var assunto = 'Status do Pagamento';
+        
+      }
+      
+      enviarEmail(email, assunto, msg);
+      console.log(email);
     });
   });
   res.writeHead(200, headers);

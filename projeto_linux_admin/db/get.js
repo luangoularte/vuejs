@@ -4,7 +4,7 @@ const db = require("./database");
 const router = express.Router();
 
 const ingredientes = ["paes", "carnes", "opcionais"];
-const tables = ['status', 'burgers', 'clientes', 'admin'];
+const tables = ['status', 'burgers', 'clientes', 'admin', 'status_pagamento'];
 
 router.get("/ingredientes", async (req, res) => {
     try {

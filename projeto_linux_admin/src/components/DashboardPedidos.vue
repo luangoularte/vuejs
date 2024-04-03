@@ -8,7 +8,9 @@
                 <div>Pão:</div>
                 <div>Carne:</div>
                 <div>Opcionais:</div>
-                <div>Ações:</div>
+                <div>Valor:</div>
+                <div>Status:</div>
+                <div>Pagamento:</div>
             </div>
         </div>
         <div id="burger-table-rows">
@@ -22,12 +24,18 @@
                         <li v-for='(opcional, index) in (burger.opcionais.replace(/[{}"]/g, "").split(","))' :key="index">{{ opcional }}</li>
                     </ul>
                 </div>
+                <div>R${{ burger.total }}</div>
                 <div>
                     <select name="status" class="status" @change="updateBurger($event, burger.id)">
                         <option v-for="status in status" :key="status.id" :value="status.tipo" :selected="burger.status == status.tipo">{{ status.tipo }}</option>
                     </select>
-                    <button class="delete-btn" @click="deleteBurger(burger.id)">Cancelar</button>
                 </div>
+                <div>
+                    <select name="status_pagamento" class="status_pagamento" @change="updateBurger($event, burger.id)">
+                        <option v-for="status in status_pagamento" :key="status.id" :value="status.tipo" :selected="burger.status == status.tipo">{{ status.tipo }}</option>
+                    </select>
+                </div>
+                <button class="delete-btn" @click="deleteBurger(burger.id)">Cancelar</button>
             </div>
         </div>
     </div>
@@ -45,6 +53,7 @@ export default {
             burgers: null,
             burger_id: null,
             status: [],
+            status_pagamento: [],
             msg: null
         }
     },
@@ -60,8 +69,10 @@ export default {
             this.burgers = data;
 
             console.log(data);
+            console.log(this.status_pagamento)
 
             this.getStatus();
+            this.getStatusPagamento();
         },
         async getStatus() {
             const require = await fetch("http://localhost:3000/status");
@@ -69,6 +80,14 @@ export default {
             const data = await require.json();
 
             this.status = data;
+
+        },
+        async getStatusPagamento() {
+            const require = await fetch("http://localhost:4000/status_pagamento");
+
+            const data = await require.json();
+
+            this.status_pagamento = data;
 
         },
         async deleteBurger(id) {
@@ -88,8 +107,11 @@ export default {
         async updateBurger(event, id) {
 
             const option = event.target.value;
+            const colunaDisparada = event.target.name;
 
-            const dataJson = JSON.stringify({ status: option })
+            console.log(colunaDisparada, option)
+
+            const dataJson = JSON.stringify({ [colunaDisparada]: option })
 
             const require = await fetch(`http://localhost:3000/burgers/${id}`, {
                 method: "PATCH",
@@ -99,18 +121,16 @@ export default {
 
             const result = await require.json();
 
-            this.msg = `O pedido ${result.id} foi alterado para ${result.status}!`;
+            this.msg = `O pedido ${result.id} foi alterado para ${option}!`;
 
             setTimeout(() => this.msg= "", 3000)
 
-            this.sendMessage(result.nome, result.status, result.email);
+            //this.sendMessage(result.nome, option, result.email, colunaDisparada);
 
-            console.log(result)
         },
-        sendMessage(nome, status, email) {
-            console.log("click");
+        sendMessage(nome, option, email, colunaDisparada) {
             axios.get(
-                "http://localhost:9000?nome="+nome+"&status="+status+"&email="+email
+                "http://localhost:9000?nome="+nome+"&option="+option+"&email="+email+"&colunaDisparada="+colunaDisparada
             )
         }
     },
@@ -122,7 +142,7 @@ export default {
 
 <style scoped>
 #burger-table {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
@@ -141,7 +161,7 @@ export default {
 
 #burger-table-heading div,
   .burger-table-row div {
-    width: 19%;
+    width: 12%;
 }
 
 .burger-table-row {
@@ -158,7 +178,7 @@ export default {
 select {
     padding: 12px 0px;
     margin-right: 12px;
-    width: 40%;
+    width: 80%;
 }
 
 .delete-btn {

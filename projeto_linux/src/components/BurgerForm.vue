@@ -5,33 +5,33 @@
             <form id="burger-form" @submit="createBurger">
                 <div class="input-container">
                     <label for="pao">Escolha o pão:</label>
-                    <select name="pao" id="pao" v-model="pao" required>
+                    <select name="pao" id="pao" v-model="pao" required @change="calcularTotal">
                         <option value="" disabled selected>Selecione o seu pão</option>
-                        <option v-for="pao in paes" v-bind:key="pao.id" :value="pao.tipo">
-                            {{ pao.tipo }} <p class="valores">+R${{ pao.valor }}</p>
+                        <option v-for="pao in paes" v-bind:key="pao.id" :value="pao" >
+                            {{ pao.tipo }} +R${{ pao.valor }}
                         </option>
                     </select>
                 </div>
                 <div class="input-container">
                     <label for="carne">Escolha a carne do seu Burger:</label>
-                    <select name="carne" id="carne" v-model="carne" required>
+                    <select name="carne" id="carne" v-model="carne" required @change="calcularTotal">
                         <option value="" disabled selected>Selecione o tipo de carne</option>
-                        <option v-for="carne in carnes" v-bind:key="carne.id" :value="carne.tipo">
-                            {{ carne.tipo }} <p class="valores">+R${{ carne.valor }}</p>
+                        <option v-for="carne in carnes" v-bind:key="carne.id" :value="carne">
+                           {{ carne.tipo }} +R${{ carne.valor }}
                         </option>
                     </select>
                 </div>
                 <div class="input-container">
                     <label id="opcionais-title" for="opcionais">Selecione os opcionais:</label>
                     <div class="checkbox-container" v-for="opcional in opcionaisdata" :key="opcional.id">
-                        <input type="checkbox" name="opcionais" v-model="opcionais" :value="opcional.tipo">
+                        <input type="checkbox" name="opcionais" v-model="opcionais" :value="opcional" @change="calcularTotal">
                         <span>{{ opcional.tipo }}</span> +R${{ opcional.valor }}
                     </div>
                 </div>
                 <div class="total">
                     <h1>Total:</h1> 
-                    <h1 v-if="total > 0">R${{ total }}</h1>
-                    <h1 v-else>R$0.00</h1>
+                    <h1 v-if="total > 0" class="preco">R${{ total.toFixed(2) }}</h1>
+                    <h1 v-else class="preco">R$0.00</h1>
                 </div>
                 <div class="input-container">
                     <input class="submit-btn" type="submit" value="Criar meu Burger!">
@@ -44,7 +44,6 @@
 
 <script>
 import MessageSystem from "./MessageSystem.vue"
-import axios from "axios";
 
 
 export default {
@@ -61,7 +60,7 @@ export default {
             msg: null,
             nome: null,
             email: null,
-            total: null
+            total: 0
         }
     },
     methods: {
@@ -83,14 +82,16 @@ export default {
             e.preventDefault()
 
             console.log(this.nome, this.email);
-
+            console.log(this.opcionais);
             const data = {
                 nome: this.nome,
                 email: this.email,
-                carne: this.carne,
-                pao: this.pao,
-                opcionais: Array.from(this.opcionais),
-                status: "solicitado"
+                carne: this.carne.tipo,
+                pao: this.pao.tipo,
+                opcionais: this.opcionais.map(opcional=>opcional.tipo),
+                status: "solicitado",
+                status_pagamento: "Aguardando pagamento",
+                total: this.total
             }
 
             const dataJson = JSON.stringify(data);
@@ -104,15 +105,32 @@ export default {
             const result = await request.json();
             console.log(result);
 
-            this.msg = `Pedido realizado com sucesso!`;
+            this.msg = `Pedido no nome de ${this.nome} realizado com sucesso! No valor de R$${this.total.toFixed(2)} reais.`;
 
-            setTimeout(() => this.msg= "", 4000)
+            setTimeout(() => this.msg= "", 7000)
 
-            this.nome = "";
             this.carne = "";
             this.pao = "";
             this.opcionais = [];
+            this.total = 0;
             
+        },
+        calcularTotal() {
+
+            this.total = 0;
+
+            if (this.pao) {
+                this.total += parseFloat(this.pao.valor);
+            }
+            if (this.carne) {
+                this.total += parseFloat(this.carne.valor);
+            }
+
+            if(this.opcionais) {
+                this.opcionais.forEach(opcional => {
+                    this.total += parseFloat(opcional.valor)
+                })
+            }
         }
 
     },
@@ -131,6 +149,19 @@ export default {
 h1 {
     font-size: 20px;
 }
+
+.preco {
+    margin-left: 5px
+}
+
+.valores {
+    margin-left: auto;
+}
+
+span {
+    margin-right: auto;
+}
+
 
 #burger-form {
     max-width: 500px;
@@ -153,8 +184,9 @@ label {
 
 input, select {
     padding: 5px 10px;
-    width: 500px;
+    width: 100%;
     font-size: 16px;
+    padding-right: 20px;
 }
 
 #opcionais-container {

@@ -28,8 +28,8 @@ async function listData() {
     console.log("CLIENTES:")
     consoler.log(result.rows)
 
-    result = await db.query("SELECT * FROM admin")
-    console.log("ADMIN:")
+    result = await db.query("SELECT * FROM status_pagamento")
+    console.log("STATUS PAGAMENTO:")
     consoler.log(result.rows)
 }
 
