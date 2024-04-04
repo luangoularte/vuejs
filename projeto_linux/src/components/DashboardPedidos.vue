@@ -25,18 +25,10 @@
                     </ul>
                 </div>
                 <div>R${{ burger.total }}</div>
+                <div>{{ burger.status }}</div>
+                <div>{{ burger.status_pagamento }}</div>
                 <div>
-                    <select name="status" class="status" @change="updateBurger($event, burger.id)">
-                        <option v-for="status in status" :key="status.id" :value="status.tipo" :selected="burger.status == status.tipo">{{ status.tipo }}</option>
-                    </select>
-                </div>
-                <div>
-                    <select name="status_pagamento" class="status_pagamento" @change="updateBurger($event, burger.id)">
-                        <option v-for="status in status_pagamento" :key="status.id" :value="status.tipo" :selected="burger.status_pagamento == status.tipo">{{ status.tipo }}</option>
-                    </select>
-                </div>
-                <div>
-                    <button class="delete-btn" @click="deleteBurger(burger.id)">Cancelar</button>
+                    <button class="delete-btn" @click="deleteBurger(burger.id, burger.nome, burger.email, burger.total)">Cancelar</button>
                 </div>
             </div>
         </div>
@@ -54,88 +46,56 @@ export default {
         return {
             burgers: null,
             burger_id: null,
-            status: [],
-            status_pagamento: [],
-            msg: null
+            msg: null,
+            nome: null,
+            email:null,
+            acao: "Cancelar Pedido"
         }
     },
     components: {
         MessageSystem
     },
     methods: {
-        async getPedidos() {
-            const require = await fetch("http://localhost:4000/burgers");
-
+        async getDadosCliente(){
+            const cliente = JSON.parse(localStorage.getItem('cliente'));
+            this.nome = cliente.nome;
+            this.email = cliente.email;
+        },
+        async getPedidosPorCliente(email) {
+            const require = await fetch(`http://localhost:3000/burgers/${email}`);
+            console.log(email)
             const data = await require.json();
 
             this.burgers = data;
 
             console.log(data);
-            console.log(this.status_pagamento)
-
-            this.getStatus();
-            this.getStatusPagamento();
         },
-        async getStatus() {
-            const require = await fetch("http://localhost:4000/status");
-
-            const data = await require.json();
-
-            this.status = data;
-
-        },
-        async getStatusPagamento() {
-            const require = await fetch("http://localhost:4000/status_pagamento");
-
-            const data = await require.json();
-
-            this.status_pagamento = data;
-
-        },
-        async deleteBurger(id) {
+        async deleteBurger(id, nome, email, total) {
             
-            const require = await fetch(`http://localhost:4000/burgers/${id}`, {
+            const require = await fetch(`http://localhost:3000/burgers/${id}`, {
                 method: "DELETE"
             });
+            console.log(nome, email, total, id, this.acao);
 
             const result = await require.json();
 
             this.msg = `Pedido N°${id} removido com sucesso!`;
 
-            setTimeout(() => this.msg= "", 3000)
+            setTimeout(() => this.msg= "", 3000);
 
-            this.getPedidos();
+            this.sendMessage(nome, email, total, id, this.acao);
+
+            this.getPedidosPorCliente(this.email);
         },
-        async updateBurger(event, id) {
-
-            const option = event.target.value;
-            const colunaDisparada = event.target.name;
-
-            const dataJson = JSON.stringify({ [colunaDisparada]: option })
-
-            const require = await fetch(`http://localhost:4000/burgers/${id}`, {
-                method: "PATCH",
-                headers: { "Content-Type" : "application/json" },
-                body: dataJson
-            });
-
-            const result = await require.json();
-
-            this.msg = `O pedido ${result.id} foi alterado para ${option}!`;
-
-            setTimeout(() => this.msg= "", 3000)
-
-            this.sendMessage(result.nome, option, result.email, colunaDisparada);
-
-        },
-        sendMessage(nome, option, email, colunaDisparada) {
+        sendMessage(nome, email, total, id, acao) {
             axios.get(
-                "http://localhost:9000?nome="+nome+"&option="+option+"&email="+email+"&colunaDisparada="+colunaDisparada
+                "http://localhost:9010?nome="+nome+"&email="+email+"&total="+total+"&acao="+acao+"&idPedido="+id
             )
         }
     },
     mounted() {
-        this.getPedidos();
+        this.getDadosCliente();
+        this.getPedidosPorCliente(this.email);
     }
 }
 </script>

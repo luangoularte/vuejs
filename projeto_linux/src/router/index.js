@@ -21,6 +21,12 @@ const routes = [
     component: HomeView,
     meta: { requiresAuth: true }
   },
+  {
+    path: '/meusPedidos',
+    name: 'meusPedidos',
+    component: () => import(/* webpackChunkName: "about" */ '../views/MeusPedidosView.vue'),
+    meta: { requiresAuth: true }
+  },
 ]
 
 const router = new VueRouter({

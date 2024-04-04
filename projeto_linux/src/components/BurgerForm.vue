@@ -8,7 +8,7 @@
                     <select name="pao" id="pao" v-model="pao" required @change="calcularTotal">
                         <option value="" disabled selected>Selecione o seu pão</option>
                         <option v-for="pao in paes" v-bind:key="pao.id" :value="pao" >
-                            {{ pao.tipo }} +R${{ pao.valor }}
+                        <span>{{ pao.tipo }}</span> +R${{ pao.valor }}
                         </option>
                     </select>
                 </div>
@@ -44,7 +44,7 @@
 
 <script>
 import MessageSystem from "./MessageSystem.vue"
-
+import axios from "axios";
 
 export default {
 
@@ -60,7 +60,8 @@ export default {
             msg: null,
             nome: null,
             email: null,
-            total: 0
+            total: 0,
+            acao: "Criar Pedido"
         }
     },
     methods: {
@@ -89,8 +90,8 @@ export default {
                 carne: this.carne.tipo,
                 pao: this.pao.tipo,
                 opcionais: this.opcionais.map(opcional=>opcional.tipo),
-                status: "solicitado",
-                status_pagamento: "aguardando pagamento",
+                status: "Solicitado",
+                status_pagamento: "Aguardando pagamento",
                 total: this.total
             }
 
@@ -105,7 +106,9 @@ export default {
             const result = await request.json();
             console.log(result);
 
-            this.msg = `Pedido no nome de ${this.nome} realizado com sucesso! No valor de R$${this.total.toFixed(2)} reais.`;
+            this.msg = `Pedido no nome de ${data.nome} realizado com sucesso! No valor de R$${data.total.toFixed(2)} reais.`;
+
+            this.sendMessage(data.nome, data.email, data.total.toFixed(2), data.id, this.acao)
 
             setTimeout(() => this.msg= "", 7000)
 
@@ -131,6 +134,11 @@ export default {
                     this.total += parseFloat(opcional.valor)
                 })
             }
+        },
+        sendMessage(nome, email, total, id, acao) {
+            axios.get(
+                "http://localhost:9010?nome="+nome+"&email="+email+"&total="+total+"&acao="+acao+"&idPedido="+id
+            )
         }
 
     },
@@ -154,9 +162,7 @@ h1 {
     margin-left: 5px
 }
 
-.valores {
-    margin-left: auto;
-}
+
 
 span {
     margin-right: auto;

@@ -16,5 +16,8 @@
     "api"
   ],
   "author": "author: bezkoder",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.10.3"
+  }
 }

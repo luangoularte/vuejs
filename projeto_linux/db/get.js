@@ -34,6 +34,17 @@ tables.forEach(table => {
     });
 });
 
+router.get('/burgers/:email', async (req, res) => {
+    try {
+        const email = req.params.email;
+        var result = await db.query(`SELECT * FROM burgers WHERE email = $1`, [email]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error(`Erro ao buscar dados de burgers:`, error);
+        res.status(500).json({ error: `Erro ao buscar dados de burgers:` });
+    }
+});
+
 
 
 module.exports = router;
