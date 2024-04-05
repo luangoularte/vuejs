@@ -32,6 +32,7 @@
 <script>
 import BurgerForm from './BurgerForm.vue';
 import MessageSystem from "./MessageSystem.vue"
+//import hash from 'bcryptjs'
 
 export default {
     name: "CadastroForm",
@@ -60,6 +61,9 @@ export default {
                 return
             }
 
+            //password_hash = await hash(this.senha, 8)
+
+            //console.log(password_hash);
 
             const data = {
                 acao: this.acao,

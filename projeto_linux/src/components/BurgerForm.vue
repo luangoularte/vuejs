@@ -144,7 +144,11 @@ export default {
     },
     mounted() {
         this.getIngredientes();
-        this.getDadosCliente();
+        if (localStorage.getItem('cliente')) {
+            const cliente = JSON.parse(localStorage.getItem('cliente')) 
+            this.nome = cliente.nome
+            this.email = cliente.email
+        }
     },
     components: {
         MessageSystem 

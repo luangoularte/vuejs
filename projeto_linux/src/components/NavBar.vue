@@ -7,7 +7,7 @@
         <router-link to="/meusPedidos" v-show="autenticado">Meus Pedidos</router-link>
         <router-link to="/" v-if="!autenticado">Login</router-link>
         <router-link v-if="autenticado" to="/" @click.native="logout">Logout</router-link>
-  </nav>
+    </nav>
 </template>
 
 <script>
