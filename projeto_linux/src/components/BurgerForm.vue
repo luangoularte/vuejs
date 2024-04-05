@@ -66,9 +66,11 @@ export default {
     },
     methods: {
         async getDadosCliente(){
-            const cliente = JSON.parse(localStorage.getItem('cliente'));
-            this.nome = cliente.nome;
-            this.email = cliente.email;
+            if (localStorage.getItem('cliente')) {
+                const cliente = JSON.parse(localStorage.getItem('cliente')) 
+                this.nome = cliente.nome
+                this.email = cliente.email
+            }
         },
         async getIngredientes() {
             const request = await fetch("http://localhost:3000/ingredientes");
@@ -144,11 +146,7 @@ export default {
     },
     mounted() {
         this.getIngredientes();
-        if (localStorage.getItem('cliente')) {
-            const cliente = JSON.parse(localStorage.getItem('cliente')) 
-            this.nome = cliente.nome
-            this.email = cliente.email
-        }
+        this.getDadosCliente();
     },
     components: {
         MessageSystem 
