@@ -12,6 +12,9 @@ export default {
     name: "CadastroView",
     components: {
         CadastroForm
+    },
+    mounted() {
+        document.title = 'Cadastro';
     }
 }
 </script>

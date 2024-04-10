@@ -13,6 +13,9 @@ export default {
   name: "PedidosView",
   components: {
     DashboardPedidos
+  },
+  mounted() {
+    document.title = 'Pedidos';
   }
 }
 </script>

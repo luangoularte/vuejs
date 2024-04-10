@@ -12,6 +12,9 @@ export default {
     name: "LoginView",
     components: {
         LoginForm
+    },
+    mounted() {
+        document.title = 'Login';
     }
 }
 </script>

@@ -13,6 +13,9 @@ export default {
     name: "MeusPedidosView.vue",
     components: {
         DashboardPedidos
+    },
+    mounted() {
+        document.title = 'Meus pedidos';
     }
 }
 </script>

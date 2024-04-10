@@ -15,6 +15,9 @@
     components: {
       BannerHome,
       BurgerForm
+    },
+    mounted() {
+      document.title = 'Make Your Burger';
     }
   }
 </script>
