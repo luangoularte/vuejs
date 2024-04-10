@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require("./database");
+//const bcrypt = require('bcryptjs');
 
 const router = express.Router();
 
@@ -7,6 +8,8 @@ const router = express.Router();
 router.post("/clientes", async (req, res) => {
     try {
         const { acao, nome, email, senha } = req.body;
+
+        //const hashedPassword = await bcrypt.hash(senha, 8);
 
         if (acao === "cadastrar") {
 
